@@ -15,6 +15,10 @@ var DashboardRenderer = function() {
             }
 
             Ext.DomHelper.useDom = true;
+	    var jsonString = response.responseText;
+	    var dashBoard = eval(jsonString);
+	    dashBoard = dashBoard.reverse();
+            response.responseText = dashBoard;
             if (mgr.rep) {
                 mgr.rep.setData(response.responseText);
             } else {

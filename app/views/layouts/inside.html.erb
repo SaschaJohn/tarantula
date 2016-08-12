@@ -45,7 +45,7 @@ var LIST_LOAD_LIMIT = parseInt('<%= Testia::LOAD_LIMIT %>', 10);
 
 <%= stylesheet_link_tag "application.css" %>
 
-    <title>Testia Tarantula</title>
+    <title>GSS Testmanagement Platform</title>
 
     <%= javascript_include_tag "application.js" %>
 
@@ -1583,7 +1583,7 @@ var importCsv = function (){
                         &nbsp;|&nbsp;
                         <span class="emulate-link" onclick="GUI.toolbarButtonPressed('userinfo')">Edit Profile</span>
                         &nbsp;|&nbsp;
-                        <a href="https://getsatisfaction.com/prove" class="emulate-link" target="_blank">Support</a>
+                        <a href="mailto:ite.pmo.gss@thyssenkrupp.com" class="emulate-link" target="_top">Support</a>
                         &nbsp;|&nbsp;
                         <%= link_to "Log Out", {:controller => 'home', :action => :logout}, {:class => 'emulate-link'} %>
                         &nbsp;|&nbsp;
