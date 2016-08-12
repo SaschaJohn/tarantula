@@ -1,0 +1,4 @@
+TK_LDAP_HOST: 'ldap'
+TK_LDAP_PORT: '636'
+TK_LDAP_BASE: 'O=x'
+TK_LDAP_USER_BASE: ',ou=,O='
