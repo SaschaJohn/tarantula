@@ -1,4 +1,5 @@
 require 'digest'
+require 'net/ldap'
 
 =begin rdoc
 
@@ -32,7 +33,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?
 
   validates_length_of       :login,    :within => 3..40
-  validates :email, :presence => true, :uniqueness => true,
+  validates :email, :presence => true,
             :email_format => true
 
 
@@ -84,6 +85,15 @@ class User < ActiveRecord::Base
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = User.find_by_login(login) # need to get the salt
+
+    ldap = Net::LDAP.new :encryption => :simple_tls
+    ldap.host = ENV["TK_LDAP_HOST"]
+    ldap.port = ENV["TK_LDAP_PORT"]
+    ldap.base = ENV["TK_LDAP_BASE"]
+    ldap.auth "uid="+login+ENV["TK_LDAP_USER_BASE"], password
+    if ldap.bind
+	return u
+    end
 
     if u.try(:authenticated?, password)
       # for forwards compatibility
