@@ -19,6 +19,7 @@ gem 'memcache-client'
 gem 'rb-readline'
 gem 'rubyzip', '~> 1.0.0'
 gem 'zip-zip' # Rubyzip old API compatibility addon
+gem 'net-ldap'
 
 # Gems used only for assets and not required
 # in production environments by default.
