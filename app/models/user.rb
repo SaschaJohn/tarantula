@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?
 
   validates_length_of       :login,    :within => 3..40
-  validates :email, :presence => true, :uniqueness => true,
+  validates :email, :presence => true,
             :email_format => true
 
 
