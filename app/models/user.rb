@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   # Print hash-table in Ext Tree format, which can be later
   # converted to json with to_json method
   def to_tree
-    return {:dbid => self[:id], :text => self[:login], :leaf => true,
+    return {:dbid => self[:id], :text => self[:login]<<' ('<<(self[:realname]||"")<<')', :leaf => true,
             :deleted => self[:deleted],
             :cls => 'x-listpanel-item x-listpanel-user',
             :realname => self[:realname]}

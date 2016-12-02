@@ -24,7 +24,7 @@ class ProjectAssignment < ActiveRecord::Base
   
   def to_data
     {:group => self.group,
-     :login => self.user.login,
+     :login => self.user.login<<' ('<<(self.user.realname || "")<<')',
      :deleted => self.user.deleted,
      :test_area => self.test_area ? self.test_area.name : nil,
      :test_area_forced => self.test_area_forced,
