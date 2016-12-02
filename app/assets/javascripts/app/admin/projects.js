@@ -676,7 +676,7 @@ var Projects = function() {
                         {login:
                          appStores.find('/users').extStore.getAt(0).data.text,
                          group: 'TEST_ENGINEER', test_area: ''});
-                    ds.add(s);
+                    ds.insert(0,s);
                 }
             }),
             new Ext.Toolbar.Button({
