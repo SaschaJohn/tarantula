@@ -33,14 +33,14 @@ class UsersController < ApplicationController
                         :include => :projects,
                         :conditions => ["project_assignments.group IN \
                                         (#{User::Groups.values.map{|s|"'#{s}'"}.join(',')}) AND projects.id = ? \
-                                        AND users.deleted = 0 AND users.login LIKE ? ",
-                                        p_id, "%#{@filter}%"]
+                                        AND users.deleted = 0 AND ( LOWER(users.realname) LIKE LOWER(?) OR users.login LIKE ? ) ",
+                                        p_id, "%#{@filter}%", "%#{@filter}%"]
                         )
     elsif (@current_user.admin?)
       active = User.all(
                         :select => 'id, login, deleted, realname',
-                        :conditions => ["deleted=0 AND login LIKE ? ",
-                                        "%#{@filter}%"])
+                        :conditions => ["deleted=0 AND ( LOWER(realname) LIKE LOWER(?) OR login LIKE ? ) ",
+                                        "%#{@filter}%", "%#{@filter}%"])
     else
       # Users in same projects
       active = User.all(
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
                         :include => :projects,
                         :conditions => ["users.deleted=0 AND projects.id IN \
                                         (#{@current_user.project_ids.join(',')}) \
-                                        AND users.login LIKE ? ", "%#{@filter}%"])
+                                        AND ( LOWER(users.realname) LIKE LOWER(?) OR users.login LIKE ? ) ", "%#{@filter}%", "%#{@filter}%"])
     end
 
     render :json => active.map{|a| a.to_tree}
